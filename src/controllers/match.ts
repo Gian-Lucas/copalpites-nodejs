@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Match } from "../schemas/match";
+import { Team } from "../schemas/team";
 require("../database/mongoose");
 
 async function get(req: Request, res: Response) {
@@ -43,10 +44,20 @@ async function create(req: Request, res: Response) {
   try {
     const { gameDate, homeTeamId, awayTeamId, type } = req.body;
 
+    const [homeTeam, awayTeam] = await Team.find({
+      id: [homeTeamId, awayTeamId],
+    });
+
     const match = new Match({
       gameDate,
-      homeTeamId,
-      awayTeamId,
+      homeTeam: {
+        name: homeTeam.name,
+        image: homeTeam.image,
+      },
+      awayTeam: {
+        name: awayTeam.name,
+        image: awayTeam.image,
+      },
       type,
     });
 
