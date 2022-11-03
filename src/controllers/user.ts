@@ -38,8 +38,8 @@ async function create(req: Request, res: Response) {
 
     res.json({ user, error: false });
   } catch (err) {
-    res.json({ user: null, error: true });
     console.error(`Error while creating user`, err);
+    res.json({ user: null, error: true });
   }
 }
 
