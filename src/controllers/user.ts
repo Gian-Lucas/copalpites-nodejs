@@ -51,13 +51,23 @@ async function update(req: Request, res: Response) {
     const userUpdated = await User.findOneAndUpdate(
       { email },
       {
-        email,
         correctScores,
         correctWinners,
       }
     );
 
-    res.json({ userUpdated, error: false });
+    const { _doc }: any = userUpdated;
+
+    const user = {
+      ..._doc,
+      correctScores,
+      correctWinners,
+    };
+
+    res.json({
+      userUpdated: user,
+      error: false,
+    });
   } catch (err) {
     console.error(`Error while updating user`, err);
     res.json({ userUpdated: null, error: true });
