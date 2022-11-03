@@ -35,29 +35,7 @@ async function create(req: Request, res: Response) {
   }
 }
 
-// async function get(req: Request, res: Response) {
-//   try {
-//     const teams = await Team.find({});
-
-//     res.json({ teams, error: false });
-//   } catch (err) {
-//     console.error(`Error while getting teams`, err);
-//     res.json({ teams: null, error: true });
-//   }
-// }
-
-// async function update(req: Request, res: Response) {
-//   try {
-//     res.json({});
-//   } catch (err) {
-//     console.error(`Error while updating team`, err);
-//     res.json({ teamUpdated: null, error: true });
-//   }
-// }
-
 module.exports = {
   getOne,
   create,
-  // get,
-  // update,
 };
