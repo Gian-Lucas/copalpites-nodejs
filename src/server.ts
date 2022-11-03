@@ -5,12 +5,12 @@ const app: Express = express();
 const port = 3333 || process.env.PORT;
 const cors = require("cors");
 
-// const nameRouter = require("./routes/name");
+const userRouter = require("./routes/user");
 
 app.use(json());
 app.use(cors());
 
-// app.use("/names", nameRouter);
+app.use("/users", userRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
