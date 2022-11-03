@@ -24,7 +24,7 @@ router.post("/match", matchController.create);
 router.put("/match", matchController.update);
 
 // guess routes
-router.get("/guesses", guessController.get);
+router.get("/guesses/:userEmail", guessController.get);
 router.post("/guess", guessController.create);
 
 module.exports = router;
