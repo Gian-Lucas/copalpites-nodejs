@@ -4,6 +4,7 @@ const router = express.Router();
 const teamController = require("./controllers/team");
 const userController = require("./controllers/user");
 const matchController = require("./controllers/match");
+const guessController = require("./controllers/guess");
 
 // team routes
 router.get("/team/:id", teamController.getOne);
@@ -21,5 +22,9 @@ router.get("/matches/finished", matchController.getByMatchFinished);
 router.get("/matches/:type", matchController.getByType);
 router.post("/match", matchController.create);
 router.put("/match", matchController.update);
+
+// guess routes
+router.get("/guesses", guessController.get);
+router.post("/guess", guessController.create);
 
 module.exports = router;
