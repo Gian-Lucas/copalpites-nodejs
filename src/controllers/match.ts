@@ -14,24 +14,11 @@ async function get(req: Request, res: Response) {
   }
 }
 
-async function getByMatchFinished(req: Request, res: Response) {
-  try {
-    const { matchFinished } = req.body;
-
-    const matches = await Match.findOne({ matchFinished });
-
-    res.json({ matches, error: false });
-  } catch (err) {
-    console.error(`Error while getting matches`, err);
-    res.json({ matches: null, error: true });
-  }
-}
-
 async function getByType(req: Request, res: Response) {
   try {
     const { type } = req.params;
 
-    const matches = await Match.findOne({ type });
+    const matches = await Match.find({ type });
 
     res.json({ matches, error: false });
   } catch (err) {
@@ -102,7 +89,6 @@ async function update(req: Request, res: Response) {
 module.exports = {
   get,
   getByType,
-  getByMatchFinished,
   create,
   update,
 };
