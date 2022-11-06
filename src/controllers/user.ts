@@ -45,14 +45,13 @@ async function create(req: Request, res: Response) {
 
 async function update(req: Request, res: Response) {
   try {
-    const { correctScores, correctWinners } = req.body;
+    const { score } = req.body;
     const { email } = req.params;
 
     const userUpdated = await User.findOneAndUpdate(
       { email },
       {
-        correctScores,
-        correctWinners,
+        score,
       }
     );
 
@@ -60,8 +59,7 @@ async function update(req: Request, res: Response) {
 
     const user = {
       ..._doc,
-      correctScores,
-      correctWinners,
+      score,
     };
 
     res.json({
