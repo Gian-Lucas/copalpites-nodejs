@@ -2,6 +2,40 @@ import { Request, Response } from "express";
 import { Match } from "../schemas/match";
 import { Team } from "../schemas/team";
 require("../database/mongoose");
+// const matches = require("../../api-requests/match/matches.json");
+
+// async function saveMatches(req: Request, res: Response) {
+//   try {
+//     for (const match of matches.r16 ) {
+//       const { gameDate, homeTeamId, awayTeamId, type } = match;
+
+//       const [homeTeam, awayTeam] = await Team.find({
+//         id: [homeTeamId, awayTeamId],
+//       });
+
+//       const newMatch = new Match({
+//         gameDate,
+//         homeTeam: {
+//           name: homeTeam.name,
+//           image: homeTeam.image,
+//         },
+//         awayTeam: {
+//           name: awayTeam.name,
+//           image: awayTeam.image,
+//         },
+//         type,
+//       });
+
+//       await newMatch.save();
+//       console.log(`${newMatch.homeTeam.name} x ${newMatch.awayTeam.name} \n`);
+//     }
+
+//     res.json({ error: false });
+//   } catch (err) {
+//     console.error(`Error while save matches`, err);
+//     res.json({ matches: null, error: true });
+//   }
+// }
 
 async function get(req: Request, res: Response) {
   try {
@@ -90,5 +124,6 @@ module.exports = {
   get,
   getByType,
   create,
+  // saveMatches,
   update,
 };

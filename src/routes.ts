@@ -18,6 +18,7 @@ router.put("/user/:email", userController.update);
 
 // match routes
 router.get("/matches", matchController.get);
+// router.get("/matches/save", matchController.saveMatches);
 router.get("/matches/:type", matchController.getByType);
 router.post("/match", matchController.create);
 router.put("/match", matchController.update);
