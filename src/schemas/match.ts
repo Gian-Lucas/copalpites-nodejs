@@ -12,7 +12,7 @@ interface IMatch {
   homeScore: number;
   awayScore: number;
   matchFinished: boolean;
-  type: "r1" | "r2" | "r3" | "r16" | "qf" | "sf" | "f";
+  type: "r1" | "r2" | "r3" | "r16" | "qf" | "sf" | "tf" | "f";
 }
 
 const matchSchema = new Schema<IMatch>({
