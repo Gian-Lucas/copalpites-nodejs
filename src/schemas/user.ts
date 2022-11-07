@@ -3,12 +3,14 @@ import { Schema, model } from "mongoose";
 interface IUser {
   email: string;
   name: string;
+  image: string;
   score: number;
 }
 
 const userSchema = new Schema<IUser>({
   email: { type: String, required: true },
   name: { type: String, required: true },
+  image: { type: String, required: true },
   score: { type: Number, default: 0 },
 });
 
