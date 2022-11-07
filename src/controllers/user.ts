@@ -28,10 +28,11 @@ async function getOne(req: Request, res: Response) {
 
 async function create(req: Request, res: Response) {
   try {
-    const { email } = req.body;
+    const { email, name } = req.body;
 
     const user = new User({
       email,
+      name,
     });
 
     await user.save();
