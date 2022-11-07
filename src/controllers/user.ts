@@ -4,7 +4,7 @@ require("../database/mongoose");
 
 async function get(req: Request, res: Response) {
   try {
-    const users = await User.find({});
+    const users = await User.find({}).sort({ score: "desc" });
 
     res.json({ users, error: false });
   } catch (err) {
