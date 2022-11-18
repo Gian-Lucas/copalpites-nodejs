@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
+import { Guess } from "../schemas/guess";
 import { Match } from "../schemas/match";
 import { Team } from "../schemas/team";
+import { User } from "../schemas/user";
 require("../database/mongoose");
 // const matches = require("../../api-requests/match/matches.json");
 
@@ -103,15 +105,62 @@ async function update(req: Request, res: Response) {
 
     const { _doc }: any = matchUpdated;
 
-    const match = {
+    const matchAfterUpdate = {
       ..._doc,
       homeScore,
       awayScore,
       matchFinished,
     };
 
+    const matches = await Match.find({ type: matchAfterUpdate.type });
+    const users = await User.find({});
+
+    const matchesFinished = matches.filter(
+      (match) => match.matchFinished === true
+    );
+
+    for (const user of users) {
+      const guesses = await Guess.find({ userEmail: user.email });
+
+      if (guesses.length !== 0 && matchesFinished.length !== 0) {
+        const score = guesses.reduce((total, currentGuess) => {
+          const match = matchesFinished.find(
+            (match) => match._id.toString() === currentGuess.matchId
+          );
+          if (match) {
+            if (
+              match.homeScore === currentGuess.homeScore &&
+              match.awayScore === currentGuess.awayScore
+            ) {
+              return total + 5;
+            } else if (
+              (match.homeScore > match.awayScore &&
+                currentGuess.homeScore > currentGuess.awayScore) ||
+              (match.homeScore < match.awayScore &&
+                currentGuess.homeScore < currentGuess.awayScore)
+            ) {
+              return total + 2;
+            } else if (
+              match.homeScore === match.awayScore &&
+              currentGuess.homeScore === currentGuess.awayScore
+            ) {
+              return total + 2;
+            }
+          }
+          return total;
+        }, 0);
+
+        await User.findOneAndUpdate(
+          { email: user.email },
+          {
+            score,
+          }
+        );
+      }
+    }
+
     res.json({
-      matchUpdated: match,
+      matchUpdated: matchAfterUpdate,
       error: false,
     });
   } catch (err) {
