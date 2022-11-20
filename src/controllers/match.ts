@@ -112,7 +112,7 @@ async function update(req: Request, res: Response) {
       matchFinished,
     };
 
-    const matches = await Match.find({ type: matchAfterUpdate.type });
+    const matches = await Match.find({});
     const users = await User.find({});
 
     const matchesFinished = matches.filter(
